@@ -4,7 +4,7 @@ import joblib
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
-model = joblib.load('SVN.pkl')
+model = joblib.load('SVM.pkl')
 vectorizer = joblib.load('vectorizer.pkl')  # optional if you're using text input
 
 app.add_middleware(
