@@ -17,7 +17,7 @@ app.add_middleware(
 
 class Message(BaseModel):
     text: str
-
+@app.post("/predict")
 def predict(data: Message):
     X = vectorizer.transform([data.text])
     y_pred = model.predict(X)[0]
