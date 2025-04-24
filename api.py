@@ -18,10 +18,15 @@ app.add_middleware(
 class Message(BaseModel):
     text: str
 
-@app.post("/predict")
 def predict(data: Message):
     X = vectorizer.transform([data.text])
     y_pred = model.predict(X)[0]
-    y_proba = model.predict_proba(X)[0][1]
+    y_proba = model.predict_proba(X)[0]  # returns [prob_ham, prob_spam]
 
-    return {"prediction": int(y_pred), "probability": round(float(y_proba), 4)}
+    return {
+        "prediction": int(y_pred),
+        "probabilities": {
+            "ham": round(float(y_proba[0]), 4),
+            "spam": round(float(y_proba[1]), 4)
+        }
+    }
